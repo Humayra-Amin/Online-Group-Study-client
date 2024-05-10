@@ -27,17 +27,17 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink to="/" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Home</NavLink></li>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Home</NavLink></li>
         <li><NavLink to="/assignments" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Assignments</NavLink></li>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Assignments</NavLink></li>
         <li><NavLink to="/login" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Login</NavLink></li>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Login</NavLink></li>
         <li><NavLink to="/register" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Register</NavLink></li>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Register</NavLink></li>
         <li><NavLink to="/CAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Create Assignments</NavLink></li>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Create Assignments</NavLink></li>
         <li><NavLink to="/PAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Pending Assignments</NavLink></li>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Pending Assignments</NavLink></li>
     </>
 
     return (
