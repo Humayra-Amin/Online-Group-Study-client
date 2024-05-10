@@ -55,11 +55,11 @@ const Login = () => {
             </Helmet>
             <div className="hero min-h-screen">
                 <div className="hero-content">
-                    <div className="card shrink-0 mb-14 md:w-[500px] lg:w-[500px] border-2 bg-white border-pink-400 shadow-xl">
+                    <div className="card shrink-0 mb-14 md:w-[500px] lg:w-[500px] border-2 border-pink-400 shadow-xl">
 
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
 
-                            <h1 className="flex justify-center text-xl lg:text-5xl font-sedan text-black">Login</h1>
+                            <h1 className="flex justify-center text-xl lg:text-5xl font-sedan text-pink-700">Login</h1>
 
                             <div className="form-control">
 
