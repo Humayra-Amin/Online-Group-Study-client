@@ -1,8 +1,5 @@
 import banner from '../../assets/images/bg-wave.png'
 import pic1 from '../../assets/images/pic11.png'
-import pic2 from '../../assets/images/pic2.jpg'
-import pic3 from '../../assets/images/pic3.jpg'
-import pic4 from '../../assets/images/pic4.jpg'
 
 
 const Banner = () => {
