@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sedan:ital@0;1&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.font-roboto {
+    font-family: "Roboto", sans-serif;
+}
+
+.font-sedan {
+    font-family: "Sedan", serif;
+}
