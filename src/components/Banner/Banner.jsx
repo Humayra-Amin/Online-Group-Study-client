@@ -7,7 +7,7 @@ const Banner = () => {
     return (
         <div className='relative overflow-hidden flex justify-center items-center'>
 
-            <div className="hero h-[450px] md:h-[550px] lg:h-[650px]" style={{ backgroundImage: `url(${banner})` }}>
+            <div className="hero h-[450px] md:h-[550px] lg:h-[650px] dark:bg-black" style={{ backgroundImage: `url(${banner})` }}>
 
                 <div className="container pb-8 sm:pb-0">
 

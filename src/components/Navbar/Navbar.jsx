@@ -24,6 +24,7 @@ const Navbar = () => {
 
     const navLinkClass = theme === "dark" ? "text-white" : "text-black";
 
+
     const links = <>
         <li><NavLink to="/" style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-700'}>Home</NavLink></li>
@@ -41,7 +42,7 @@ const Navbar = () => {
 
     return (
         <div className="mx-auto">
-            <div className="navbar shadow-md border">
+            <div className="navbar shadow-xl border-2">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
