@@ -1,9 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from '../../assets/images/logos.png'
 import { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 
 const Navbar = () => {
+
+    const { logout, user } = useAuth();
 
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
 
@@ -30,10 +33,8 @@ const Navbar = () => {
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Home</NavLink></li>
         <li><NavLink to="/assignments" style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Assignments</NavLink></li>
-        <li><NavLink to="/login" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Login</NavLink></li>
-        <li><NavLink to="/register" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Register</NavLink></li>
+        {!user && <li><NavLink to="/register" style={{ color: navLinkClass }} className={({ isActive }) =>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Register</NavLink></li>}
         <li><NavLink to="/CAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Create Assignments</NavLink></li>
         <li><NavLink to="/PAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
@@ -64,6 +65,32 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="flex-none gap-2">
+                    {
+                        user?.email ? <div className="dropdown dropdown-end ml-44">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ml-[-150px] lg:ml-[0px] md:ml-[0px]">
+                                <div className="w-10 rounded-full">
+                                    <img alt="Tailwind CSS Navbar component" src={user?.photoURL || "https://i.ibb.co/BV0NHW2/pics.jpg"} />
+                                </div>
+                            </div>
+
+                            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 text-start">
+
+                                <li>
+                                    <button className="btn btn-sm btn-ghost">{user?.displayName || 'Not found'}</button>
+                                </li>
+
+                                <li>
+                                    <button onClick={logout} className="btn btn-sm btn-ghost">LOGOUT</button>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                            :
+                            <Link to="/login" className="form-control">
+                                <button className="btn bg-pink-200 border border-pink-700 text-black hover:bg-gray-200 hover:text-black hover:border-pink-500 ml-[20px] lg:ml-[0px] md:ml-[0px]">LOGIN</button>
+                            </Link>
+                    }
 
 
 
