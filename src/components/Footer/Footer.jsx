@@ -29,7 +29,7 @@ const Footer = () => {
 
     return (
         <div>
-            <footer className="footer p-20 md:p-8 bg-pink-200 text-black mt-10 bg-opacity-60">
+            <footer className="footer p-20 md:p-8 bg-pink-100 text-black mt-10 bg-opacity-60">
                 <aside>
                     <div className="flex-1">
                         <Link to='/'><img src={logo} alt="" className="lg:ml-0 ml-2 w-[150px] lg:w-[150px] lg:h-[100px] md:w-[100px] lg:p-2" /></Link>
@@ -71,14 +71,14 @@ const Footer = () => {
                 </nav>
 
                 {chevron && (
-                    <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-pink-600 p-2 rounded-full">
+                    <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-gray-300 p-2 rounded-full">
                         <FaChevronUp size={30}></FaChevronUp>
                     </button>
                 )}
 
             </footer>
 
-            <footer className="footer px-10 py-4 border-t border-pink-500 bg-pink-400 text-base-content flex justify-center items-center">
+            <footer className="footer px-10 py-4 border-t border-pink-500 bg-pink-300 text-base-content flex justify-center items-center">
                 <aside>
                     <p className='font-bold text-black'>Copyright © 2024 - All right reserved by Study Bizz</p>
                 </aside>
