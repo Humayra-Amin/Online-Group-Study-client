@@ -5,6 +5,7 @@ import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import CreateAssignment from "../components/CreateAssignment/CreateAssignment";
+import Assignments from "../components/Assignments/Assignments";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
+        loader: () => fetch('http://localhost:5000/assignments'),
       },
       {
         path: '/login',
@@ -27,6 +29,11 @@ const router = createBrowserRouter([
       {
         path: '/CAssignments',
         element: <CreateAssignment></CreateAssignment>,
+      },
+      {
+        path: '/assignments',
+        element: <Assignments></Assignments>,
+        loader: () => fetch('http://localhost:5000/assignments'),
       },
     ]
   },
