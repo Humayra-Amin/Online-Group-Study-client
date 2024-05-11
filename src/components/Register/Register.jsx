@@ -72,9 +72,9 @@ const Register = () => {
             </Helmet>
 
 
-            <div className="hero min-h-screen">
+            <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content">
-                    <div className="card shrink-0 mb-14 md:w-[500px] lg:w-[500px] border-2 border-pink-400 shadow-xl">
+                    <div className="card shrink-0 mb-14 md:w-[500px] lg:w-[500px] border-2 border-pink-400 shadow-xl bg-base-100">
 
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
 
