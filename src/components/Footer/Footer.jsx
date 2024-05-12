@@ -7,8 +7,6 @@ const Footer = () => {
 
     const [chevron, setChevron] = useState(false);
 
-    // const bg = theme === "dark" ? "bg-gray-200" : "bg-pink-400";
-
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
