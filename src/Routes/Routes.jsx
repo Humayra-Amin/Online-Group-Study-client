@@ -6,6 +6,7 @@ import Register from "../components/Register/Register";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
 import CreateAssignment from "../components/CreateAssignment/CreateAssignment";
 import Assignments from "../components/Assignments/Assignments";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/CAssignments',
-        element: <CreateAssignment></CreateAssignment>,
+        element: <ProtectedRoute>
+          <CreateAssignment></CreateAssignment>
+        </ProtectedRoute>,
       },
       {
         path: '/assignments',

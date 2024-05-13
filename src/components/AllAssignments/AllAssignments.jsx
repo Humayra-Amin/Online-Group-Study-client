@@ -21,7 +21,7 @@ const AllAssignments = ({ assignments }) => {
                     <p className="lg:text-xl lg:mt-4 font-bold font-roboto">Total Marks: <span className="font-sedan font-normal"> {marks}</span></p>
                     <p className="lg:text-xl lg:mt-4 font-bold font-roboto">Difficulty Level: <span className="font-sedan font-normal"> {difficultyLevel}</span></p>
 
-                    <div className="card-actions flex flex-col lg:flex-row justify-start">
+                    <div className="card-actions flex flex-row justify-start">
                         <button className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">View Details</button>
                         <button className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">Update</button>
                         <button className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">Delete</button>
