@@ -1,9 +1,45 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const AllAssignments = ({ assignments }) => {
+
+const AllAssignments = ({ assignments, allAssignment, setAllAssignment }) => {
+
 
     const { _id, title , description , image , marks, difficultyLevel } = assignments;
+
+
+    const handleDelete = _id => {
+        console.log(_id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/assignments/${_id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: "Your Spot has been deleted.",
+                                icon: "success"
+                            });
+                            const remaining = allAssignment.filter(assignment => assignment._id !== _id);
+                            setAllAssignment(remaining);
+                        }
+                    })
+            }
+        });
+    }
 
 
     return (
@@ -25,7 +61,7 @@ const AllAssignments = ({ assignments }) => {
                     <div className="card-actions flex flex-row justify-start">
                         <button className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">View Details</button>
                        <Link to={`/updateAssignments/${_id}`}><button className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">Update</button></Link>
-                        <button className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">Delete</button>
+                        <button onClick={() => handleDelete(_id)} className="btn bg-pink-400 border-pink-800 text-black hover:bg-white hover:text-black hover:border-pink-700">Delete</button>
                     </div>
 
                 </div>
