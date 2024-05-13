@@ -1,21 +1,19 @@
+import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Helmet } from "react-helmet-async";
-// import useAuth from "../../hooks/useAuth";
-import Swal from 'sweetalert2';
 
-const CreateAssignment = () => {
+const UpdateAssignments = () => {
+    const assignments = useLoaderData();
 
-    // const { user } = useAuth();
 
-    const [dueDate, setDueDate] = useState(new Date());
+    const { _id, title, description, image, marks, difficultyLevel, dueDate } = assignments;
 
-    const handleDateChange = (date) => {
-        setDueDate(date);
-    };
+    const [selectedDueDate, setSelectedDueDate] = useState(new Date(dueDate));
 
-    const handleCreateAssignment = event => {
+    const handleUpdateAssignments = event => {
         event.preventDefault();
 
         const form = event.target;
@@ -25,44 +23,25 @@ const CreateAssignment = () => {
         const image = form.image.value;
         const marks = form.marks.value;
         const difficultyLevel = form.difficultyLevel.value;
-        const dueDate = form.dueDate.value;
+        const dueDate= selectedDueDate.toISOString();
+
+        const updatedAssignments = { title, description, image, marks, difficultyLevel, dueDate }
 
 
-        if (
-            !title ||
-            !description ||
-            !image ||
-            !marks ||
-            !difficultyLevel ||
-            !dueDate
-        ) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Please fill out all the fields',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
-
-
-        const newAssignment = { title, description, image, marks, difficultyLevel, dueDate }
-
-
-        fetch('http://localhost:5000/assignments', {
-            method: 'POST',
+        fetch(`http://localhost:5000/assignments/${_id}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(newAssignment)
+            body: JSON.stringify(updatedAssignments)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if (data.insertedId) {
+                if (data.modifiedCount > 0) {
                     Swal.fire({
                         title: 'Success',
-                        text: `Assignment Created Successfully`,
+                        text: 'Updated Assignments Successfully',
                         icon: 'success',
                         confirmButtonText: 'Cool'
                     })
@@ -75,7 +54,7 @@ const CreateAssignment = () => {
         <div>
 
             <Helmet>
-                <title>Study Bizz | Create Assignments</title>
+                <title>Study Bizz | Update Assignments</title>
                 <link rel="icon" type="image/jpg" href="/src/assets/images/icon.png" />
             </Helmet>
 
@@ -83,18 +62,13 @@ const CreateAssignment = () => {
 
                 <div className="hero-content flex-col lg:flex-row-reverse">
 
-                    <div className="text-center lg:text-left">
-                        <h1 className="text-4xl md:text-3xl lg:text-5xl font-bold font-roboto">Create Assignments</h1>
-                        <p className="py-6 font-sedan md:text-xl lg:text-2xl">Build assignments that cater to diverse learning styles and abilities to promote inclusivity and accessibility</p>
-                    </div>
-
                     <div className="card shrink-0 lg:w-[700px] bg-base-100">
 
-                        <form onSubmit={handleCreateAssignment} className="card-body border-2 border-pink-600 p-14 shadow-2xl rounded-xl">
+                        <form onSubmit={handleUpdateAssignments} className="card-body border-2 border-pink-600 p-14 shadow-2xl rounded-xl">
 
 
-                            <h2 className="text-4xl md:text-4xl lg:text-4xl font-bold font-sedan mb-4 text-center">Add Assignment</h2>
-                            <p className="text-[16px] md:text-xl lg:text-xl font-sedan mb-4 text-center">Add the assignment in the form with related information</p>
+                            <h2 className="text-4xl md:text-4xl lg:text-4xl font-bold font-sedan mb-4 text-center">Update Assignment</h2>
+
 
                             {/* ROW 1 */}
 
@@ -107,7 +81,7 @@ const CreateAssignment = () => {
                                             <span className="label-text">Assignment Title</span>
                                         </label>
                                         <label className="input-group">
-                                            <input type="text" name="title" placeholder="Title" className="input input-bordered w-full" />
+                                            <input type="text" name="title" defaultValue={title} placeholder="Title" className="input input-bordered w-full" />
                                         </label>
                                     </div>
 
@@ -117,7 +91,7 @@ const CreateAssignment = () => {
                                             <span className="label-text">Description</span>
                                         </label>
                                         <label className="input-group">
-                                            <textarea type="textarea textarea-bordered" name="description" placeholder="Description" className="input input-bordered w-full" />
+                                            <textarea type="textarea textarea-bordered" name="description" defaultValue={description} placeholder="Description" className="input input-bordered w-full" />
                                         </label>
                                     </div>
 
@@ -138,7 +112,7 @@ const CreateAssignment = () => {
                                             <span className="label-text">Image URL</span>
                                         </label>
                                         <label className="input-group">
-                                            <input type="text" name="image" placeholder="Image URL" className="input input-bordered w-full" />
+                                            <input type="text" name="image" defaultValue={image} placeholder="Image URL" className="input input-bordered w-full" />
                                         </label>
                                     </div>
 
@@ -148,7 +122,7 @@ const CreateAssignment = () => {
                                             <span className="label-text">Marks</span>
                                         </label>
                                         <label className="input-group">
-                                            <input type="text" name="marks" placeholder="Marks" className="input input-bordered w-full" />
+                                            <input type="text" name="marks" defaultValue={marks} placeholder="Marks" className="input input-bordered w-full" />
                                         </label>
                                     </div>
 
@@ -169,7 +143,7 @@ const CreateAssignment = () => {
                                             <div className="label">
                                                 <span className="label-text-alt">Difficulty Level</span>
                                             </div>
-                                            <select name="difficultyLevel" className="select select-bordered">
+                                            <select name="difficultyLevel" defaultValue={difficultyLevel} className="select select-bordered">
                                                 <option disabled selected>Select Difficulty Level</option>
                                                 <option value="Easy">Easy</option>
                                                 <option value="Medium">Medium</option>
@@ -184,10 +158,10 @@ const CreateAssignment = () => {
                                             <span className="label-text">Due Date</span>
                                         </label>
                                         <DatePicker
-                                            selected={dueDate}
-                                            onChange={handleDateChange}
-                                            name="dueDate"
-                                            className="input input-bordered w-full" />
+                                            selected={selectedDueDate}
+                                            onChange={(date) => setSelectedDueDate(date)}
+                                            className="input input-bordered w-full"
+                                        />
                                     </div>
 
                                 </div>
@@ -198,7 +172,7 @@ const CreateAssignment = () => {
                             {/* button */}
 
                             <div className="form-control mt-6">
-                                <button className="btn bg-pink-400 border-pink-800 text-black text-xl hover:bg-white hover:text-black hover:border-pink-700">Create</button>
+                                <button className="btn bg-pink-400 border-pink-800 text-black text-xl hover:bg-white hover:text-black hover:border-pink-700">Update</button>
                             </div>
 
 
@@ -209,9 +183,8 @@ const CreateAssignment = () => {
                 </div>
 
             </div>
-
         </div>
     );
 };
 
-export default CreateAssignment;
+export default UpdateAssignments;

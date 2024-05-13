@@ -7,6 +7,7 @@ import ErrorPage from "../components/ErrorPage/ErrorPage";
 import CreateAssignment from "../components/CreateAssignment/CreateAssignment";
 import Assignments from "../components/Assignments/Assignments";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import UpdateAssignments from "../components/UpdateAssignments/UpdateAssignments";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
         element: <ProtectedRoute>
           <CreateAssignment></CreateAssignment>
         </ProtectedRoute>,
+      },
+      {
+        path: '/updateAssignments/:_id',
+        element: <UpdateAssignments></UpdateAssignments>,
+        loader: ({params}) => fetch(`http://localhost:5000/assignments/${params._id}`)
       },
       {
         path: '/assignments',
