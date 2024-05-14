@@ -7,6 +7,7 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
+import axios from "axios";
 
 
 const Login = () => {
@@ -33,10 +34,21 @@ const Login = () => {
 
         signInUser(email, password)
             .then((result) => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                const user = { email };
                 if (result.user) {
                     toast.success('Login successfully!!!')
                     setTimeout(() => {
-                        navigate(from);
+                        
+                        // get access token
+                        axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                            .then(res => {
+                                console.log(res.data);
+                                if(res.data.success){
+                                    navigate(from);
+                                }
+                            })
                     }, 1000);
                 }
             })

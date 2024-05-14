@@ -1,31 +1,23 @@
+import { useLoaderData } from "react-router-dom";
+import AllAssignments from "../AllAssignments/AllAssignments";
 
 const Features = () => {
+    const allAssignment = useLoaderData();
 
-    // const {  title , description , image } = assignments;
+
+    const limitedAssignments = allAssignment.slice(0, 2);
 
 
     return (
         <div>
 
-            {/* <div>
+            <div className="text-center my-16">
+                <h2 className="text-4xl lg:text-5xl font-roboto font-semibold mt-8 lg:mt-6">Assignment Features</h2>
+            </div>
 
-                <div className="text-center my-16">
-                    <h2 className="text-4xl lg:text-5xl font-roboto font-semibold mt-8 lg:mt-6">Features</h2>
-                    <p className="mt-6 font-sedan">EDUCATION</p>
-                </div>
-
-                <div className="card card-side bg-base-100 shadow-xl">
-                    <figure><img src={image} alt="Movie" /></figure>
-                    <div className="card-body">
-                        <h2 className="card-title">{title}</h2>
-                        <p>{description}</p>
-                        <div className="card-actions justify-end">
-                            <button className="btn btn-primary">Watch</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div> */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 lg:gap-5 md:gap-2">
+                {limitedAssignments.map(assignments => <AllAssignments key={assignments._id} assignments={assignments}></AllAssignments>)}
+            </div>
 
         </div>
     );

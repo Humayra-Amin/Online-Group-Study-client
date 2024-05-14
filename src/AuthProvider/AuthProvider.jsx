@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import Spinner from "../components/Spinner/Spinner";
+import axios from "axios";
 
 export const AuthContext = createContext(null)
 
@@ -21,7 +22,7 @@ const AuthProvider = ({ children }) => {
     // update user profile
     const updateUserProfile = (fullname, imageURL) => {
         return updateProfile(auth.currentUser, {
-            displayName: fullname, 
+            displayName: fullname,
             photoURL: imageURL
         });
     }
@@ -34,6 +35,12 @@ const AuthProvider = ({ children }) => {
 
     // google login
     const googleLogin = () => {
+        // get access token
+        axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+
+            })
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
     }
@@ -54,7 +61,7 @@ const AuthProvider = ({ children }) => {
         const timer = setTimeout(() => {
             setLoading(false);
         }, 2000);
-        
+
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
@@ -82,7 +89,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={allValues}>
-            {loading ? <Spinner/> : children}
+            {loading ? <Spinner /> : children}
         </AuthContext.Provider>
     );
 };

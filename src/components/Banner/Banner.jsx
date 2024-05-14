@@ -16,7 +16,7 @@ const Banner = () => {
 
                                 <div className='flex flex-col justify-center gap-4 pt-12 lg:pt-0 text-center lg:text-left order-1 lg:order-2 relative z-10'>
 
-                                    <h1 data-aos="zoom-in-up" data-aos-duration="1000" className='text-xl md:text-4xl lg:text-5xl font-roboto'>Study Together, Succeed Together</h1>
+                                    <h1 data-aos="zoom-in-up" data-aos-duration="1000" className='text-xl md:text-4xl md:mt-10 lg:text-5xl font-roboto'>Study Together, Succeed Together</h1>
                                     <p className='lg:p-6 lg:text-[18px] font-sedan'>Join our online group study platform and collaborate with friends to ace your assignments and exams. With interactive features and a supportive community, learning has never been this engaging</p>
 
                                 </div>
