@@ -39,6 +39,8 @@ const Navbar = () => {
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Create Assignments</NavLink></li>
         <li><NavLink to="/PAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Pending Assignments</NavLink></li>
+        <li><NavLink to="/MYassignments" style={{ color: navLinkClass }} className={({ isActive }) =>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>My Assignments</NavLink></li>
     </>
 
     return (

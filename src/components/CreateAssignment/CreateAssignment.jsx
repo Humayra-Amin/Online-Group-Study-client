@@ -26,7 +26,7 @@ const CreateAssignment = () => {
         const marks = form.marks.value;
         const difficultyLevel = form.difficultyLevel.value;
         const dueDate = form.dueDate.value;
-
+        form.reset();
 
         if (
             !title ||

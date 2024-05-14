@@ -24,6 +24,7 @@ const UpdateAssignments = () => {
         const marks = form.marks.value;
         const difficultyLevel = form.difficultyLevel.value;
         const dueDate= selectedDueDate.toISOString();
+        form.reset();
 
         const updatedAssignments = { title, description, image, marks, difficultyLevel, dueDate }
 
