@@ -11,11 +11,11 @@ const FAQ = () => {
 
             <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-start">
 
-                <div className="lg:mr-24">
+                <div className="lg:ml-28">
                     <img data-aos="zoom-in-up" data-aos-duration="1000" src={faq} className="lg:w-[600px] lg:h-[500px]" />
                 </div>
 
-                <div className="md:w-[500px] lg:w-[500px]">
+                <div className="md:w-[500px] lg:w-[500px] lg:ml-20">
 
                     <div className="collapse collapse-plus bg-pink-200 mb-4 text-black">
                         <input type="radio" name="my-accordion-3" />

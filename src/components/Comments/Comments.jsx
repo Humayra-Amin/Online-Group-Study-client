@@ -8,7 +8,7 @@ const Comments = () => {
                 <p className="mt-4 font-sedan text-xl">Here's what our community members have to say</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 md:gap-4 ml-6 lg:ml-0 md:ml-0">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 md:gap-4 ml-6 lg:ml-20 md:ml-0">
 
                 <div className="card w-96 bg-base-100 shadow-xl border-2 border-pink-600">
 
