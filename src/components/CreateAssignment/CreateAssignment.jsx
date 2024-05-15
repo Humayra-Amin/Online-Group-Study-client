@@ -49,7 +49,7 @@ const CreateAssignment = () => {
         const newAssignment = { title, description, image, marks, difficultyLevel, dueDate }
 
 
-        fetch('https://online-group-study-server-sepia.vercel.app/assignments', {
+        fetch('https://online-group-study-server-azure.vercel.app/assignments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

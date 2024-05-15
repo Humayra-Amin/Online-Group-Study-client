@@ -34,7 +34,7 @@ const AssignmentDetails = () => {
             formData.append("quickNote", quickNote);
             formData.append("userEmail", `${user?.email}`);
 
-            const response = await fetch("https://online-group-study-server-sepia.vercel.app/submit-assignment", {
+            const response = await fetch("https://online-group-study-server-azure.vercel.app/submit-assignment", {
                 method: "POST",
                 body: formData,
             });

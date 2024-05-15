@@ -29,7 +29,7 @@ const UpdateAssignments = () => {
         const updatedAssignments = { title, description, image, marks, difficultyLevel, dueDate }
 
 
-        fetch(`https://online-group-study-server-sepia.vercel.app/assignments/${_id}`, {
+        fetch(`https://online-group-study-server-azure.vercel.app/assignments/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

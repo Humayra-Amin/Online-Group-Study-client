@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('https://online-group-study-server-sepia.vercel.app/assignments'),
+        loader: () => fetch('https://online-group-study-server-azure.vercel.app/assignments'),
       },
       {
         path: '/login',
@@ -41,24 +41,24 @@ const router = createBrowserRouter([
         element: <ProtectedRoute>
           <UpdateAssignments></UpdateAssignments>,
         </ProtectedRoute>,
-        loader: ({params}) => fetch(`https://online-group-study-server-sepia.vercel.app/assignments/${params._id}`)
+        loader: ({params}) => fetch(`https://online-group-study-server-azure.vercel.app/assignments/${params._id}`)
       },
       {
         path: '/assignments',
         element: <Assignments></Assignments>,
-        loader: () => fetch('https://online-group-study-server-sepia.vercel.app/assignments'),
+        loader: () => fetch('https://online-group-study-server-azure.vercel.app/assignments'),
       },
       {
         path: '/assignments/:_id',
         element: <ProtectedRoute>
           <AssignmentDetails></AssignmentDetails>,
         </ProtectedRoute>,
-        loader: ({params}) => fetch(`https://online-group-study-server-sepia.vercel.app/assignments/${params._id}`)
+        loader: ({params}) => fetch(`https://online-group-study-server-azure.vercel.app/assignments/${params._id}`)
       },
       // {
       //   path: '/MYassignments/:email',
       //   element: <MyAssignment></MyAssignment>,
-      //   loader: ({params}) => fetch(`https://online-group-study-server-sepia.vercel.app/myAssignment/${params.email}`)
+      //   loader: ({params}) => fetch(`https://online-group-study-server-azure.vercel.app/myAssignment/${params.email}`)
       // },
     ]
   },
