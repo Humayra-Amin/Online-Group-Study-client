@@ -35,12 +35,6 @@ const AuthProvider = ({ children }) => {
 
     // google login
     const googleLogin = () => {
-        // get access token
-        axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
-            .then(res => {
-                console.log(res.data);
-
-            })
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
     }

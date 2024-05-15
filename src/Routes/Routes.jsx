@@ -9,7 +9,7 @@ import Assignments from "../components/Assignments/Assignments";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import UpdateAssignments from "../components/UpdateAssignments/UpdateAssignments";
 import AssignmentDetails from "../components/AssignmentDetails/AssignmentDetails";
-import MyAssignment from "../components/MyAssignment/MyAssignment";
+// import MyAssignment from "../components/MyAssignment/MyAssignment";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:5000/assignments'),
+        loader: () => fetch('https://online-group-study-server-sepia.vercel.app/assignments'),
       },
       {
         path: '/login',
@@ -38,26 +38,28 @@ const router = createBrowserRouter([
       },
       {
         path: '/updateAssignments/:_id',
-        element: <UpdateAssignments></UpdateAssignments>,
-        loader: ({params}) => fetch(`http://localhost:5000/assignments/${params._id}`)
+        element: <ProtectedRoute>
+          <UpdateAssignments></UpdateAssignments>,
+        </ProtectedRoute>,
+        loader: ({params}) => fetch(`https://online-group-study-server-sepia.vercel.app/assignments/${params._id}`)
       },
       {
         path: '/assignments',
         element: <Assignments></Assignments>,
-        loader: () => fetch('http://localhost:5000/assignments'),
+        loader: () => fetch('https://online-group-study-server-sepia.vercel.app/assignments'),
       },
       {
         path: '/assignments/:_id',
         element: <ProtectedRoute>
           <AssignmentDetails></AssignmentDetails>,
         </ProtectedRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/assignments/${params._id}`)
+        loader: ({params}) => fetch(`https://online-group-study-server-sepia.vercel.app/assignments/${params._id}`)
       },
-      {
-        path: '/MYassignments/:email',
-        element: <MyAssignment></MyAssignment>,
-        loader: ({params}) => fetch(`http://localhost:5000/myAssignment/${params.email}`)
-      },
+      // {
+      //   path: '/MYassignments/:email',
+      //   element: <MyAssignment></MyAssignment>,
+      //   loader: ({params}) => fetch(`https://online-group-study-server-sepia.vercel.app/myAssignment/${params.email}`)
+      // },
     ]
   },
 ]);

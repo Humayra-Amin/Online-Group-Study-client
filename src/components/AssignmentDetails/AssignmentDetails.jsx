@@ -2,40 +2,70 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 
 const AssignmentDetails = () => {
 
     const assignments = useLoaderData();
 
-    const { title , description , image , marks, difficultyLevel } = assignments;
+    const { user } = useAuth();
+
+    const { title, description, image, marks, difficultyLevel } = assignments;
 
     const [showModal, setShowModal] = useState(false);
 
     const [pdfFile, setPdfFile] = useState(null);
 
     const [quickNote, setQuickNote] = useState("");
+    
 
-    const handleSubmit = () => {
-        const form = new FormData()
-        form.append("pdfFile", pdfFile);
-        form.append("quickNote", quickNote);
-        form.append("status", "pending");
-        console.log(form);
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setPdfFile(file);
+    };
 
-        setPdfFile(null)
+    const handleSubmit = async () => {
+        try {
+            console.log("Submitting assignment...");
+            const formData = new FormData();
+            formData.append("assignmentId", assignments._id);
+            formData.append("pdfFile", pdfFile);
+            formData.append("quickNote", quickNote);
+            formData.append("userEmail", `${user?.email}`);
 
-        setQuickNote("")
+            const response = await fetch("https://online-group-study-server-sepia.vercel.app/submit-assignment", {
+                method: "POST",
+                body: formData,
+            });
 
-        setShowModal(false)
+            console.log("Response:", response);
 
-        Swal.fire({
-            title: "Success!",
-            text: "Assignment submitted successfully!",
-            icon: "success",
-            confirmButtonText: "OK"
-        });
-    }
+            if (response.ok) {
+                setPdfFile(null);
+                setQuickNote("");
+                setShowModal(false);
+                Swal.fire({
+                    title: "Success!",
+                    text: "Assignment submitted successfully!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+            } else {
+                throw new Error("Failed to submit assignment");
+            }
+        } catch (error) {
+            console.error("Error submitting assignment:", error);
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to submit assignment",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    };
+
+
 
 
     return (
@@ -68,7 +98,7 @@ const AssignmentDetails = () => {
                         <p className="lg:text-xl ml-4 mt-2 lg:ml-1 lg:mt-12 font-bold font-roboto md:ml-4">Difficulty Level: <span className="font-normal">{difficultyLevel}</span></p>
 
 
-                        <button onClick={() => setShowModal(true)}className="btn bg-pink-400 border-pink-800 text-black lg:text-xl hover:bg-white hover:text-black hover:border-pink-700 mb-4 ml-4 lg:mb-0 lg:ml-0 lg:mt-20 md:ml-4 md:mb-4">Take Assignments</button>
+                        <button onClick={() => setShowModal(true)} className="btn bg-pink-400 border-pink-800 text-black lg:text-xl hover:bg-white hover:text-black hover:border-pink-700 mb-4 ml-4 lg:mb-0 lg:ml-0 lg:mt-20 md:ml-4 md:mb-4">Take Assignments</button>
 
                     </div>
 
@@ -88,7 +118,7 @@ const AssignmentDetails = () => {
 
                         <div className="mb-4">
                             <label className="block mb-1">PDF/Doc File</label>
-                            <input type="file" onChange={(e) => setPdfFile(e.target.files[0])} className="w-full border border-gray-300 rounded-md px-4 py-2" />
+                            <input type="file" onChange={handleFileChange} className="w-full border border-gray-300 rounded-md px-4 py-2" />
                         </div>
 
                         <div className="mb-4">
@@ -97,7 +127,7 @@ const AssignmentDetails = () => {
                         </div>
 
                         <button onClick={handleSubmit} className="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">Submit</button>
-                        
+
                     </div>
 
                 </div>
