@@ -1,45 +1,58 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 
 const AllAssignments = ({ assignments, allAssignment, setAllAssignment }) => {
 
+    const { user } = useAuth();
 
-    const { _id, title, description, image, marks, difficultyLevel } = assignments;
+    const { _id, title, description, image, marks, difficultyLevel, userEmail } = assignments;
 
 
     const handleDelete = _id => {
-        console.log(_id);
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(`https://online-group-study-server-azure.vercel.app/assignments/${_id}`, {
-                    method: 'DELETE'
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.deletedCount > 0) {
-                            Swal.fire({
-                                title: 'Deleted!',
-                                text: "Your Assignment has been deleted.",
-                                icon: "success"
-                            });
-                            const remaining = allAssignment.filter(assignment => assignment._id !== _id);
-                            setAllAssignment(remaining);
-                            
-                        }
+        if (user?.email ==userEmail) {
+            console.log(_id);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`https://online-group-study-server-azure.vercel.app/assignments/${_id}`, {
+                        method: 'DELETE'
                     })
-            }
-        });
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.deletedCount > 0) {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: "Your Assignment has been deleted.",
+                                    icon: "success"
+                                });
+                                window.location.reload();
+                                const remaining = allAssignment.filter(assignment => assignment._id !== _id);
+                                setAllAssignment(remaining);
+
+                            }
+                        })
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Not Allowed!',
+                text: "You cannot delete this assignment.",
+                icon: "error"
+            });
+
+        }
     }
 
 

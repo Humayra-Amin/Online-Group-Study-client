@@ -37,10 +37,9 @@ const Navbar = () => {
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Register</NavLink></li>}
         <li><NavLink to="/CAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Create Assignments</NavLink></li>
-        <li><NavLink to="/PAssignments" style={{ color: navLinkClass }} className={({ isActive }) =>
+        <li><NavLink to={`/pendingAssignment/${user?.email}`} style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Pending Assignments</NavLink></li>
-        {/* <li><NavLink to="/MYassignments" style={{ color: navLinkClass }} className={({ isActive }) =>
-            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>My Assignments</NavLink></li> */}
+
     </>
 
     return (
@@ -81,10 +80,10 @@ const Navbar = () => {
                                     <button className="btn btn-sm btn-ghost">{user?.displayName || 'Not found'}</button>
                                 </li>
 
-                                {/* <li>
-                                    <NavLink to={`/MYassignments/${user?.email}`} style={{ color: navLinkClass }} className={({ isActive }) =>
+                                <li>
+                                    <NavLink to={`/myAssignment/${user?.email}`} style={{ color: navLinkClass }} className={({ isActive }) =>
                                         isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>My Assignments</NavLink>
-                                </li> */}
+                                </li>
 
                                 <li>
                                     <button onClick={logout} className="btn btn-sm btn-ghost">LOGOUT</button>

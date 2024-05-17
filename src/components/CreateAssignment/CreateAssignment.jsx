@@ -2,12 +2,12 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Helmet } from "react-helmet-async";
-// import useAuth from "../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import Swal from 'sweetalert2';
 
 const CreateAssignment = () => {
 
-    // const { user } = useAuth();
+    const { user } = useAuth();
 
     const [dueDate, setDueDate] = useState(new Date());
 
@@ -26,6 +26,7 @@ const CreateAssignment = () => {
         const marks = form.marks.value;
         const difficultyLevel = form.difficultyLevel.value;
         const dueDate = form.dueDate.value;
+        const userEmail = user?.email;
         form.reset();
 
         if (
@@ -46,7 +47,7 @@ const CreateAssignment = () => {
         }
 
 
-        const newAssignment = { title, description, image, marks, difficultyLevel, dueDate }
+        const newAssignment = { title, description, image, marks, difficultyLevel, dueDate, userEmail }
 
 
         fetch('https://online-group-study-server-azure.vercel.app/assignments', {

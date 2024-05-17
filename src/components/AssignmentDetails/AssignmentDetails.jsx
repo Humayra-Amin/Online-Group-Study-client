@@ -4,69 +4,94 @@ import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 
-
 const AssignmentDetails = () => {
-
     const assignments = useLoaderData();
-
     const { user } = useAuth();
-
-    const { title, description, image, marks, difficultyLevel } = assignments;
-
+    const { title, description, image, marks, difficultyLevel, userEmail } = assignments;
     const [showModal, setShowModal] = useState(false);
 
-    const [pdfFile, setPdfFile] = useState(null);
 
-    const [quickNote, setQuickNote] = useState("");
-    
+    const [formData, setFormData] = useState({
+        pdfURL: "",
+        quickNote: "",
+        userEmail: userEmail,
+        studentEmail: user?.email,
+        status: "pending",
+        title: title,
+        description: description,
+        marks: marks,
+        difficultyLevel: difficultyLevel,
+        feedback: "Not given",
+        obtainedMarks: "Not scored",        
+    });
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setPdfFile(file);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
-
-    const handleSubmit = async () => {
-        try {
-            console.log("Submitting assignment...");
-            const formData = new FormData();
-            formData.append("assignmentId", assignments._id);
-            formData.append("pdfFile", pdfFile);
-            formData.append("quickNote", quickNote);
-            formData.append("userEmail", `${user?.email}`);
-
-            const response = await fetch("https://online-group-study-server-azure.vercel.app/submit-assignment", {
-                method: "POST",
-                body: formData,
-            });
-
-            console.log("Response:", response);
-
-            if (response.ok) {
-                setPdfFile(null);
-                setQuickNote("");
-                setShowModal(false);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        if (formData.pdfURL !== '') {
+            console.log(formData);
+            try {
+               
+                console.log(formData);
+    
+                const response = await fetch("https://online-group-study-server-azure.vercel.app/submitAssignment", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+    
+                console.log("Response:", response);
+    
+                if (response.ok) {
+                    setShowModal(false);
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Assignment submitted successfully!",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    });
+                    setFormData({
+                        pdfURL: "",
+                        quickNote: "",
+                        userEmail: userEmail,
+                        studentEmail: user?.email,
+                        status: "pending",
+                        title: title,
+                        description: description,
+                        marks: marks,
+                        difficultyLevel: difficultyLevel,
+                        feedback: "Not given",
+                        obtainedMarks: "Not scored", 
+                    });
+                } else {
+                    throw new Error("Failed to submit assignment");
+                }
+            } catch (error) {
+                console.error("Error submitting assignment:", error);
                 Swal.fire({
-                    title: "Success!",
-                    text: "Assignment submitted successfully!",
-                    icon: "success",
+                    title: "Error!",
+                    text: "Failed to submit assignment. Please try again later.",
+                    icon: "error",
                     confirmButtonText: "OK"
                 });
-            } else {
-                throw new Error("Failed to submit assignment");
             }
-        } catch (error) {
-            console.error("Error submitting assignment:", error);
+        }
+        else{
             Swal.fire({
                 title: "Error!",
-                text: "Failed to submit assignment",
+                text: "Failed to submit assignment. Must Provide PDF link.",
                 icon: "error",
                 confirmButtonText: "OK"
             });
         }
     };
-
-
-
+    
 
     return (
         <div>
@@ -83,7 +108,7 @@ const AssignmentDetails = () => {
 
                 <div className="card lg:card-side mt-14 bg-base-200 shadow-lg border-2 border-pink-600 font-roboto">
 
-                    <figure><img src={image} alt="Album" className="rounded-t-lg lg:rounded-l-lg bg-[#1313130D] w-[573px] h-[411px] lg:w-[550px] lg:h-[550px] md:w-[650px] md:h-[571px] border-2 border-pink-600" /></figure>
+                    <figure><img src={image} alt="Album" className="rounded-t-lg lg:rounded-l-lg bg-[#1313130D] w-[573px] h-[411px] lg:w-[650px] lg:h-[750px] md:w-[650px] md:h-[571px] border-2 border-pink-600" /></figure>
 
                     <div className="lg:ml-14">
 
@@ -107,32 +132,27 @@ const AssignmentDetails = () => {
             </div>
 
             {showModal && (
-
                 <div className="fixed inset-0 flex items-center justify-center z-50">
-
                     <div className="absolute inset-0 bg-black opacity-50"></div>
-
                     <div className="bg-white p-8 rounded-lg z-10">
-
                         <h2 className="text-2xl font-semibold mb-4">Submit Assignment</h2>
 
                         <div className="mb-4">
-                            <label className="block mb-1">PDF/Doc File</label>
-                            <input type="file" onChange={handleFileChange} className="w-full border border-gray-300 rounded-md px-4 py-2" />
+                            <label htmlFor="pdfURL" className="block text-sm font-medium text-black">PDF URL</label>
+                            <input type="text" name="pdfURL" id="pdfURL" value={formData.pdfURL} onChange={handleChange} placeholder="PDF URL" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 px-2" />
                         </div>
 
+
                         <div className="mb-4">
-                            <label className="block mb-1">Quick Note</label>
-                            <textarea value={quickNote} onChange={(e) => setQuickNote(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2" rows="3" />
+                            <label htmlFor="quickNote" className="block text-sm font-medium text-black">Quick Note</label>
+                            <input type="text" name="quickNote" id="quickNote" value={formData.quickNote} onChange={handleChange} placeholder="Quick Note" className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 px-2" />
                         </div>
 
                         <button onClick={handleSubmit} className="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">Submit</button>
 
                     </div>
-
                 </div>
             )}
-
         </div>
     );
 };

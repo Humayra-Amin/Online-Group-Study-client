@@ -9,7 +9,8 @@ import Assignments from "../components/Assignments/Assignments";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import UpdateAssignments from "../components/UpdateAssignments/UpdateAssignments";
 import AssignmentDetails from "../components/AssignmentDetails/AssignmentDetails";
-// import MyAssignment from "../components/MyAssignment/MyAssignment";
+import PendingAssignmentsPage from "../components/PendingAssignmentPage/PendingAssignmentPage";
+import MyAssignment from "../components/MyAssignment/MyAssignment";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute>
           <UpdateAssignments></UpdateAssignments>,
         </ProtectedRoute>,
-        loader: ({params}) => fetch(`https://online-group-study-server-azure.vercel.app/assignments/${params._id}`)
+        loader: ({ params }) => fetch(`https://online-group-study-server-azure.vercel.app/assignments/${params._id}`)
       },
       {
         path: '/assignments',
@@ -53,13 +54,22 @@ const router = createBrowserRouter([
         element: <ProtectedRoute>
           <AssignmentDetails></AssignmentDetails>,
         </ProtectedRoute>,
-        loader: ({params}) => fetch(`https://online-group-study-server-azure.vercel.app/assignments/${params._id}`)
+        loader: ({ params }) => fetch(`https://online-group-study-server-azure.vercel.app/assignments/${params._id}`)
       },
-      // {
-      //   path: '/MYassignments/:email',
-      //   element: <MyAssignment></MyAssignment>,
-      //   loader: ({params}) => fetch(`https://online-group-study-server-azure.vercel.app/myAssignment/${params.email}`)
-      // },
+      {
+        path: '/myAssignment/:studentEmail',
+        element: <ProtectedRoute>
+          <MyAssignment></MyAssignment>,
+        </ProtectedRoute>,
+        loader: ({ params }) => fetch(`https://online-group-study-server-azure.vercel.app/myAssignment/${params.studentEmail}`)
+      },
+      {
+        path: '/pendingAssignment/:userEmail',
+        element: <ProtectedRoute>
+          <PendingAssignmentsPage></PendingAssignmentsPage>,
+        </ProtectedRoute>,
+        loader: ({ params }) => fetch(`https://online-group-study-server-azure.vercel.app/pendingAssignment/${params.userEmail}`)
+      },
     ]
   },
 ]);
