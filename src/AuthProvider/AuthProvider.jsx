@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import Spinner from "../components/Spinner/Spinner";
-import axios from "axios";
 
 export const AuthContext = createContext(null)
 

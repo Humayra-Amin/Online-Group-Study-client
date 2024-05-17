@@ -9,23 +9,22 @@ const Home = () => {
 
     return (
         <div>
-            <Banner></Banner>
-            <Features>
-
-            </Features>
             
+            <Banner></Banner>
 
+            <Features></Features>
+            
             <FAQ></FAQ>
 
             <Comments></Comments>
 
             <Newsletter></Newsletter>
 
-
             <Helmet>
                 <title>Study Bizz | Home</title>
                 <link rel="icon" type="image/jpg" href="/src/assets/images/icon.png" />
             </Helmet>
+
         </div>
     );
 };
