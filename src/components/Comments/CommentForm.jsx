@@ -42,7 +42,7 @@ const CommentForm = () => {
 
     return (
         <div className="container mx-auto my-16">
-            <h2 className="text-2xl lg:text-4xl font-semibold mb-4 text-center font-sedan">Submit a Comment</h2>
+            <h2 className="text-2xl lg:text-4xl font-semibold mb-4 text-center font-sedan">Post Your Thoughts</h2>
             <form onSubmit={handleComments} className="max-w-md mx-auto">
                 <input
                     type="text"
