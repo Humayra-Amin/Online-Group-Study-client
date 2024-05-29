@@ -10,13 +10,12 @@ const Home = () => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        // Fetch comments data when the component mounts
         fetchComments();
     }, []);
 
     const fetchComments = async () => {
         try {
-            const response = await fetch('http://localhost:5000/comments');
+            const response = await fetch('https://online-group-study-server-azure.vercel.app/comments');
             const commentsData = await response.json();
             setComments(commentsData);
         } catch (error) {

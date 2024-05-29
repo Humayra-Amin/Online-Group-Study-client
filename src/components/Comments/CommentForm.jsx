@@ -19,7 +19,7 @@ const CommentForm = () => {
         const newComment = { title, description, userEmail }
 
 
-        fetch('http://localhost:5000/comments', {
+        fetch('https://online-group-study-server-azure.vercel.app/comments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

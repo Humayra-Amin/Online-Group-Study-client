@@ -77,13 +77,13 @@ const router = createBrowserRouter([
         element: <ProtectedRoute>
           <CommentForm></CommentForm>
         </ProtectedRoute>,
-        loader: () => fetch('http://localhost:5000/comments'),
+        loader: () => fetch(`https://online-group-study-server-azure.vercel.app/comments`),
     },
     {
       path: '/comments',
       element: <Comments></Comments>, 
       loader: async () => {
-          const response = await fetch('http://localhost:5000/comments');
+          const response = await fetch(`https://online-group-study-server-azure.vercel.app/comments`);
           const comments = await response.json();
           return { comments };
       },
