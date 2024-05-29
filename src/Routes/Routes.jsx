@@ -11,6 +11,8 @@ import UpdateAssignments from "../components/UpdateAssignments/UpdateAssignments
 import AssignmentDetails from "../components/AssignmentDetails/AssignmentDetails";
 import PendingAssignmentsPage from "../components/PendingAssignmentPage/PendingAssignmentPage";
 import MyAssignment from "../components/MyAssignment/MyAssignment";
+import CommentForm from "../components/Comments/CommentForm";
+import Comments from "../components/Comments/Comments";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +72,23 @@ const router = createBrowserRouter([
         </ProtectedRoute>,
         loader: ({ params }) => fetch(`https://online-group-study-server-azure.vercel.app/pendingAssignment/${params.userEmail}`)
       },
+      {
+        path: '/comments',
+        element: <ProtectedRoute>
+          <CommentForm></CommentForm>
+        </ProtectedRoute>,
+        loader: () => fetch('http://localhost:5000/comments'),
+    },
+    {
+      path: '/comments',
+      element: <Comments></Comments>, 
+      loader: async () => {
+          const response = await fetch('http://localhost:5000/comments');
+          const comments = await response.json();
+          return { comments };
+      },
+  },
+      
     ]
   },
 ]);

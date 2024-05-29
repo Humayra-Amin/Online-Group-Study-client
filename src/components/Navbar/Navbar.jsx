@@ -40,6 +40,8 @@ const Navbar = () => {
         <li><NavLink to={`/pendingAssignment/${user?.email}`} style={{ color: navLinkClass }} className={({ isActive }) =>
             isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Pending Assignments</NavLink></li>
 
+        <li><NavLink to="/comments" style={{ color: navLinkClass }} className={({ isActive }) =>
+            isActive ? 'text-black border-2 border-pink-500 bg-white hover:bg-pink-200' : 'hover:bg-gray-200'}>Comments</NavLink></li>
     </>
 
     return (

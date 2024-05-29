@@ -4,8 +4,25 @@ import Features from "../Features/Features";
 import FAQ from "../FAQ/FAQ";
 import Newsletter from "../Newsletter/Newsletter";
 import Comments from "../Comments/Comments";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        // Fetch comments data when the component mounts
+        fetchComments();
+    }, []);
+
+    const fetchComments = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/comments');
+            const commentsData = await response.json();
+            setComments(commentsData);
+        } catch (error) {
+            console.error("Error fetching comments:", error);
+        }
+    };
 
     return (
         <div>
@@ -16,7 +33,7 @@ const Home = () => {
             
             <FAQ></FAQ>
 
-            <Comments></Comments>
+            <Comments comments={comments} />
 
             <Newsletter></Newsletter>
 
