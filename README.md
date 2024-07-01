@@ -1,5 +1,5 @@
 # Website Name
-Study Bizz
+Study Bizz (Online Group Study)
 
 # Introduction
 The Study Bizz is a web application designed to facilitate collaborative learning experiences for students. It provides a virtual space where users can create, manage, and participate in group study sessions, share resources, and engage in interactive learning activities.
